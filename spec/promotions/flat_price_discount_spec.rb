@@ -54,7 +54,7 @@ RSpec.describe FlatPriceDiscount do
       described_class.new(
         start_time: Time.now - 3600,
         end_time: Time.now + 3600,
-        product_code: 'gr1',
+        product_code: 'sR1',
         products: cart(5).products,
         n: 1,
         discounted_price: 4.5
@@ -66,7 +66,7 @@ RSpec.describe FlatPriceDiscount do
         described_class.new(
           start_time: Time.now - 3600,
           end_time: Time.now + 3600,
-          product_code: 'gr1',
+          product_code: 'sR1',
           products: cart(5).products,
           n: 5,
           discounted_price: 4.5
@@ -76,6 +76,7 @@ RSpec.describe FlatPriceDiscount do
       it 'sets new discounted price on all items' do
         promotion.calculate_discounts
 
+        expect(promotion.products.length).to be > 0
         expect(promotion.products.all? { |p| p[:discounted_price] == 4.5}).to eq true
       end
     end
@@ -85,7 +86,7 @@ RSpec.describe FlatPriceDiscount do
         described_class.new(
           start_time: Time.now - 3600,
           end_time: Time.now + 3600,
-          product_code: 'gr1',
+          product_code: 'sR1',
           products: cart(3).products,
           n: 4,
           discounted_price: 4.5

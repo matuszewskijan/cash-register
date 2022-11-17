@@ -74,9 +74,9 @@ RSpec.describe PercentageDiscount do
       end
 
       it 'sets new discounted price on all items' do
-        original_prices = promotion.products.map { |p| p[:price] }
         promotion.calculate_discounts
 
+        expect(promotion.products.length).to be > 0
         expect(promotion.products.all? { |p| p[:price] > p[:discounted_price] }).to eq true
       end
 
