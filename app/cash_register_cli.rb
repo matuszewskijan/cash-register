@@ -1,32 +1,29 @@
 class CashRegisterCLI
-  PRODUCTS = [
-    {
-      code: 'GR1',
-      name:	'Green Tea',
-      price: 3.11
-    },
-    {
-      code: 'SR1',
-      name:	'Strawberries',
-      price: 5.00
-    },
-    {
-      code: 'CF1',
-      name:	'Coffee',
-      price: 11.23
-    }
-  ]
+  attr_accessor :basket
+
+  def initialize(cart)
+    @cart = cart
+  end
 
   def prompt(label)
     print(label)
-    value = gets.chomp
+    value = gets.chomp.split
 
-    send(value.to_sym)
+    if value.length == 1
+      send(value[0].to_sym)
+    else
+      send(value[0].to_sym, *value[1..])
+    end
   end
 
   def help
     puts 'Available commands are:'
     puts '`exit`'
+    puts '`add CODE|NAME AMOUNT`: amount could be skipped if only one added'
+  end
+
+  def add(name, amount = 1)
+    @cart.add_product(name, amount)
   end
 
   def method_missing(name, *args, &block)
