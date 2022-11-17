@@ -31,7 +31,7 @@ class Cart
     return 'Unkown product' unless product
 
     amount.times do
-      products << product
+      products << product.clone # Without #clone all products will be the same memory object
     end
   end
 
