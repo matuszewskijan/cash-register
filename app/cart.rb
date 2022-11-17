@@ -35,6 +35,17 @@ class Cart
     end
   end
 
+  def remove_product(name, amount = 1)
+    product = find_product(name)
+
+    return 'Unkown product' unless product
+
+    amount.times do
+      index = products.find_index { |p| p[:code] == product[:code] }
+      products.delete_at(index) if index
+    end
+  end
+
   private
 
   def find_product(name)

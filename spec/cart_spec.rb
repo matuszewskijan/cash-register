@@ -21,7 +21,33 @@ RSpec.describe Cart do
 
     context 'when unkown product' do
       it 'does not add product to the cart' do
-        expect { basket.add_product('strawberries') }.to change(basket.products, :count).by(1)
+        expect { basket.add_product('unkown') }.not_to change(basket.products, :count)
+      end
+
+      it 'returns warning message' do
+         expect(basket.add_product('unkown')).to eq 'Unkown product'
+      end
+    end
+  end
+
+  describe '#remove_product' do
+    before { basket.add_product('strawberries', 5) }
+
+    context 'when known product' do
+      it 'removes product from cart' do
+        expect { basket.remove_product('strawberries') }.to change(basket.products, :count).by(-1)
+      end
+    end
+
+    context 'with higher amount' do
+      it 'removes products to the cart' do
+        expect { basket.remove_product('strawberries', 6) }.to change(basket.products, :count).by(-5)
+      end
+    end
+
+    context 'when unkown product' do
+      it 'does not remove products from cart' do
+        expect { basket.remove_product('strawberries') }.to change(basket.products, :count)
       end
 
       it 'returns warning message' do
