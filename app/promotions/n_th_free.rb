@@ -10,7 +10,7 @@ class NThFree
   end
 
   def active?
-    start_time <= Time.zone.now && end_time > Time.zone.now
+    start_time <= Time.now && end_time > Time.now
   end
 
   def calculate_discounts
