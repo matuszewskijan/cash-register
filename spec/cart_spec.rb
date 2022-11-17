@@ -55,4 +55,11 @@ RSpec.describe Cart do
       end
     end
   end
+
+  describe '#calculate_price' do
+    it 'sums prices of all products' do
+      basket.add_product('strawberries', 5)
+      expect(basket.calculate_price).to eq 5.00 * 5
+    end
+  end
 end

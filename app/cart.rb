@@ -46,6 +46,10 @@ class Cart
     end
   end
 
+  def calculate_price
+    products.sum { |p| p[:price] }
+  end
+
   private
 
   def find_product(name)
