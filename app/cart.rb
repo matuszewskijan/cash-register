@@ -26,12 +26,20 @@ class Cart
   end
 
   def add_product(name, amount = 1)
-    product = PRODUCTS.find { |p| p[:name].downcase == name.downcase || p[:code].downcase == name.downcase }
+    product = find_product(name)
 
     return 'Unkown product' unless product
 
     amount.times do
       products << product
     end
+  end
+
+  private
+
+  def find_product(name)
+    name = name.downcase
+
+    PRODUCTS.find { |p| p[:name].downcase == name || p[:code].downcase == name }
   end
 end
