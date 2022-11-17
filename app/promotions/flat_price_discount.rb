@@ -15,7 +15,7 @@ class FlatPriceDiscount
   end
 
   def calculate_discounts
-    return unless n >= products.length
+    return unless products.length >= n
 
     products.each { |p| p[:discounted_price] = discounted_price }
   end
