@@ -3,7 +3,7 @@
 require './app/products'
 
 class Cart
-  attr_accessor :products, :total_price, :total_discounts, :promotions
+  attr_accessor :products, :promotions
   attr_writer :total_price, :total_discounts
 
   def initialize
@@ -15,8 +15,8 @@ class Cart
     @products.sum { |p| p[:discounted_price] || p[:price] }
   end
 
-  def add_product(name, amount = 1)
-    product = find_product(name)
+  def add_product(code, amount = 1)
+    product = Products.find(code)
 
     return 'Unkown product' unless product
 
@@ -25,13 +25,13 @@ class Cart
     end
   end
 
-  def remove_product(name, amount = 1)
-    product = find_product(name)
+  def remove_product(code, amount = 1)
+    product = Products.find(code)
 
     return 'Unkown product' unless product
 
     amount.times do
-      index = products.find_index { |p| p[:code] == product[:code] }
+      index = products.find_index { |p| p.code == product.code }
       products.delete_at(index) if index
     end
   end
@@ -42,13 +42,5 @@ class Cart
 
   def total_discounts
     @total_discounts.round(2)
-  end
-
-  private
-
-  def find_product(name)
-    name = name.downcase
-
-    Products::LIST.find { |p| p[:name].downcase == name || p[:code].downcase == name }
   end
 end

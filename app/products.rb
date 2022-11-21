@@ -1,21 +1,15 @@
-# frozen_string_literal: true
+require './app/product'
 
-class Products
+module Products
   LIST = [
-    {
-      code: 'GR1',
-      name:	'Green Tea',
-      price: 3.11
-    },
-    {
-      code: 'SR1',
-      name:	'Strawberries',
-      price: 5.00
-    },
-    {
-      code: 'CF1',
-      name:	'Coffee',
-      price: 11.23
-    }
-  ].freeze
+    Product.new(code: 'GR1', name: 'Green Tea', price: 311),
+    Product.new(code: 'SR1', name: 'Strawberries', price: 500),
+    Product.new(code: 'CF1', name:	'Coffee', price: 1123)
+  ]
+
+  def self.find(code)
+    code = code.downcase
+
+    Products::LIST.find { |p| p.code.downcase == code }
+  end
 end
