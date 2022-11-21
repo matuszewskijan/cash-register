@@ -4,12 +4,13 @@ require 'money'
 require './app/products'
 
 class Cart
-  attr_accessor :products, :promotions
+  attr_accessor :products, :promotions, :currency
   attr_writer :total_price, :total_discounts
 
-  def initialize
+  def initialize(currency: 'EUR')
     @products = []
     @price = 0
+    @currency = currency
   end
 
   def add_product(code, amount = 1)
@@ -34,10 +35,10 @@ class Cart
   end
 
   def total_price
-    Money.from_cents(@total_price, 'EUR').format
+    Money.from_cents(@total_price, currency).format
   end
 
   def total_discounts
-    Money.from_cents(@total_discounts, 'EUR').format
+    Money.from_cents(@total_discounts, currency).format
   end
 end

@@ -3,7 +3,7 @@ require './app/cart'
 
 puts 'Hello to Cash Register!'
 
-cart = Cart.new
+cart = Cart.new(currency: 'EUR')
 cli = CashRegisterCLI.new(cart)
 
 puts cli.help

@@ -13,11 +13,11 @@ class Product
     @price = price
   end
 
-  def format(without_price: false)
+  def format(currency: 'EUR', without_price: false)
     if without_price
       "#{name} (#{code})"
     else
-      "#{name} - #{Money.from_cents(discounted_price || price, 'EUR').format}"
+      "#{name} - #{Money.from_cents(discounted_price || price, currency).format}"
     end
   end
 end
