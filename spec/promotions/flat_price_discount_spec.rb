@@ -77,7 +77,7 @@ RSpec.describe FlatPriceDiscount do
         promotion.calculate_discounts
 
         expect(promotion.products.length).to be > 0
-        expect(promotion.products.all? { |p| p[:discounted_price] == 4.5}).to eq true
+        expect(promotion.products.all? { |p| p.discounted_price == 4.5}).to eq true
       end
     end
 

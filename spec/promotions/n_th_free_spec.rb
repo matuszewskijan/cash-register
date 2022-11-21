@@ -74,7 +74,7 @@ RSpec.describe NThFree do
       it 'makes every 2nd item free' do
         promotion.calculate_discounts
 
-        expect(promotion.products.select { |p| p[:discounted_price] }.length).to eq 2
+        expect(promotion.products.select { |p| p.discounted_price }.length).to eq 2
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe NThFree do
       it 'makes every 5th item free' do
         promotion.calculate_discounts
 
-        expect(promotion.products.count { |p| p[:discounted_price] }).to eq 3
+        expect(promotion.products.count { |p| p.discounted_price }).to eq 3
       end
     end
   end

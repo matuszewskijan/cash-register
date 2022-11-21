@@ -11,7 +11,7 @@ class NThFree
   end
 
   def products
-    cart.products.select { |p| p[:code].downcase == product_code.downcase }
+    cart.products.select { |p| p.code.downcase == product_code.downcase }
   end
 
   def active?
@@ -22,7 +22,7 @@ class NThFree
     return if n == 1 # It'd make all items free, I am not sure if that makes any sense
 
     (products.length / n).times do |i|
-      products[(n * i) + 1][:discounted_price] = 0
+      products[(n * i) + 1].discounted_price = 0
     end
   end
 end

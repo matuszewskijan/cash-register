@@ -41,7 +41,7 @@ RSpec.describe PercentageDiscount do
     context 'when current time is between start and end time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now - 10,end_time: Time.now + 10, product_code:, cart:, n: 2, discount: 33
+          start_time: Time.now - 10, end_time: Time.now + 10, product_code:, cart:, n: 2, discount: 33
         )
       end
 
@@ -79,12 +79,12 @@ RSpec.describe PercentageDiscount do
         promotion.calculate_discounts
 
         expect(promotion.products.length).to be > 0
-        expect(promotion.products.all? { |p| p[:price] > p[:discounted_price] }).to eq true
+        expect(promotion.products.all? { |p| p.price > p.discounted_price }).to eq true
       end
 
       it 'calculates proper discounted price' do
         promotion.calculate_discounts
-        expect(promotion.products[0][:discounted_price]).to eq promotion.products[0][:price] * 0.67
+        expect(promotion.products[0].discounted_price).to eq promotion.products[0].price * 0.67
       end
     end
 

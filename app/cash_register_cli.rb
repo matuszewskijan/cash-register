@@ -36,7 +36,7 @@ class CashRegisterCLI
   end
 
   def list
-    Products::LIST.map { |p| "#{p[:name]} (#{p[:code]})"}
+    Products::LIST.map { |p| p.format(without_price: true) }
   end
 
   def add(name, amount = 1)
@@ -46,9 +46,7 @@ class CashRegisterCLI
   end
 
   def total
-    products = @cart.products.map do |product|
-      "#{product[:name]} - #{product[:discounted_price] || product[:price]}"
-    end.join("\n")
+    products = @cart.products.map(&:format).join("\n")
 
     "#{products}\n#{@cart.total_price}. Discount amount: #{@cart.total_discounts}."
   end

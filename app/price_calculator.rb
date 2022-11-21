@@ -10,7 +10,7 @@ class PriceCalculator
 
   def process
     promotions.calculate_discounts
-    cart.total_price = cart.products.sum { |p| p[:discounted_price] || p[:price] }
-    cart.total_discounts = cart.products.select { |p| p[:discounted_price] }.sum { |p| p[:price] - p[:discounted_price] }
+    cart.total_price = cart.products.sum { |p| p.discounted_price || p.price }
+    cart.total_discounts = cart.products.select { |p| p.discounted_price }.sum { |p| p.price - p.discounted_price }
   end
 end

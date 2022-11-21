@@ -12,7 +12,7 @@ class FlatPriceDiscount
   end
 
   def products
-    cart.products.select { |p| p[:code].downcase == product_code.downcase }
+    cart.products.select { |p| p.code.downcase == product_code.downcase }
   end
 
   def active?
@@ -22,6 +22,6 @@ class FlatPriceDiscount
   def calculate_discounts
     return unless products.length >= n
 
-    products.each { |p| p[:discounted_price] = discounted_price }
+    products.each { |p| p.discounted_price = discounted_price }
   end
 end
