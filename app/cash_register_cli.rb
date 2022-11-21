@@ -48,7 +48,7 @@ class CashRegisterCLI
   def total
     products = @cart.products.map(&:format).join("\n")
 
-    "#{products}\n#{@cart.total_price}. Discount amount: #{@cart.total_discounts}."
+    "#{products}\nTotal amount: #{@cart.total_price}. Discount amount: #{@cart.total_discounts}."
   end
 
   def method_missing(name, *args, &block)

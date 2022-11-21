@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'money'
 require './app/products'
 
 class Cart
@@ -33,10 +34,10 @@ class Cart
   end
 
   def total_price
-    @total_price.round(2)
+    Money.from_cents(@total_price, 'EUR').format
   end
 
   def total_discounts
-    @total_discounts.round(2)
+    Money.from_cents(@total_discounts, 'EUR').format
   end
 end
