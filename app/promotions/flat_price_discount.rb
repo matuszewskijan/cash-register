@@ -1,13 +1,18 @@
 class FlatPriceDiscount
-  attr_accessor :start_time, :end_time, :n, :products, :discounted_price
+  attr_accessor :start_time, :end_time, :n, :cart, :discounted_price, :product_code
 
   # NOTE: All products after buying N products will have different price
-  def initialize(start_time:, end_time:, product_code:, n:, products:, discounted_price:)
+  def initialize(start_time:, end_time:, product_code:, n:, cart:, discounted_price:)
     @start_time = start_time
     @end_time = end_time
-    @products = products.select { |p| p[:code].downcase == product_code.downcase }
     @n = n
     @discounted_price = discounted_price
+    @product_code = product_code
+    @cart = cart
+  end
+
+  def products
+    cart.products.select { |p| p[:code].downcase == product_code.downcase }
   end
 
   def active?

@@ -1,13 +1,18 @@
 class PercentageDiscount
-  attr_accessor :start_time, :end_time, :n, :products, :discount
+  attr_accessor :start_time, :end_time, :n, :cart, :discount, :product_code
 
   # NOTE: All products after buying N products will have different price
-  def initialize(start_time:, end_time:, product_code:, n:, products:, discount:)
+  def initialize(start_time:, end_time:, product_code:, n:, cart:, discount:)
     @start_time = start_time
     @end_time = end_time
-    @products = products.select { |p| p[:code].downcase == product_code.downcase }
     @n = n
     @discount = discount
+    @cart = cart
+    @product_code = product_code
+  end
+
+  def products
+    cart.products.select { |p| p[:code].downcase == product_code.downcase }
   end
 
   def active?

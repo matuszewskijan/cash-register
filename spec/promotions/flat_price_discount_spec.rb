@@ -5,7 +5,7 @@ require './app/promotions/flat_price_discount'
 require './app/cart'
 
 RSpec.describe FlatPriceDiscount do
-  def cart(product_amount)
+  def cart(product_amount = 1)
     cart = Cart.new
     cart.add_product('SR1', product_amount)
     cart
@@ -15,7 +15,7 @@ RSpec.describe FlatPriceDiscount do
     context 'when start date is after current time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now + 10, end_time: Time.now + 20, product_code: '', products: [], n: 2, discounted_price: 4.5
+          start_time: Time.now + 10, end_time: Time.now + 20, product_code: '', cart:, n: 2, discounted_price: 4.5
         )
       end
 
@@ -27,7 +27,7 @@ RSpec.describe FlatPriceDiscount do
     context 'when end date is before current time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now - 30, end_time: Time.now - 20, product_code: '', products: [], n: 2, discounted_price: 4.5
+          start_time: Time.now - 30, end_time: Time.now - 20, product_code: '', cart:, n: 2, discounted_price: 4.5
         )
       end
 
@@ -39,7 +39,7 @@ RSpec.describe FlatPriceDiscount do
     context 'when current time is between start and end time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now - 10,end_time: Time.now + 10, product_code: '', products: [], n: 2, discounted_price: 4.5
+          start_time: Time.now - 10,end_time: Time.now + 10, product_code: '', cart:, n: 2, discounted_price: 4.5
         )
       end
 
@@ -55,7 +55,7 @@ RSpec.describe FlatPriceDiscount do
         start_time: Time.now - 3600,
         end_time: Time.now + 3600,
         product_code: 'sR1',
-        products: cart(5).products,
+        cart: cart(5),
         n: 1,
         discounted_price: 4.5
       )
@@ -67,7 +67,7 @@ RSpec.describe FlatPriceDiscount do
           start_time: Time.now - 3600,
           end_time: Time.now + 3600,
           product_code: 'sR1',
-          products: cart(5).products,
+          cart: cart(5),
           n: 5,
           discounted_price: 4.5
         )
@@ -87,7 +87,7 @@ RSpec.describe FlatPriceDiscount do
           start_time: Time.now - 3600,
           end_time: Time.now + 3600,
           product_code: 'sR1',
-          products: cart(3).products,
+          cart: cart(3),
           n: 4,
           discounted_price: 4.5
         )

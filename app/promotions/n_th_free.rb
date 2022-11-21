@@ -1,12 +1,17 @@
 class NThFree
-  attr_accessor :start_time, :end_time, :n, :products
+  attr_accessor :start_time, :end_time, :n, :cart, :product_code
 
   # NOTE: Every n-th product will be free
-  def initialize(start_time:, end_time:, product_code:, n:, products:)
+  def initialize(start_time:, end_time:, product_code:, n:, cart:)
     @start_time = start_time
     @end_time = end_time
-    @products = products.select { |p| p[:code].downcase == product_code.downcase }
+    @cart = cart
     @n = n
+    @product_code = product_code
+  end
+
+  def products
+    cart.products.select { |p| p[:code].downcase == product_code.downcase }
   end
 
   def active?
