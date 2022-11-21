@@ -1,28 +1,18 @@
 # frozen_string_literal: true
 
-PRODUCTS = [
-  {
-    code: 'GR1',
-    name:	'Green Tea',
-    price: 3.11
-  },
-  {
-    code: 'SR1',
-    name:	'Strawberries',
-    price: 5.00
-  },
-  {
-    code: 'CF1',
-    name:	'Coffee',
-    price: 11.23
-  }
-].freeze
+require './app/products'
 
 class Cart
-  attr_accessor :products
+  attr_accessor :products, :total_price, :total_discounts, :promotions
+  attr_writer :total_price, :total_discounts
 
   def initialize
     @products = []
+    @price = 0
+  end
+
+  def calculate_price
+    @products.sum { |p| p[:discounted_price] || p[:price] }
   end
 
   def add_product(name, amount = 1)
@@ -31,7 +21,7 @@ class Cart
     return 'Unkown product' unless product
 
     amount.times do
-      products << product.clone # Without #clone all products will be the same memory object
+      products << product.clone # Without `clone` all products will be the same object in memory
     end
   end
 
@@ -46,8 +36,12 @@ class Cart
     end
   end
 
-  def calculate_price
-    products.sum { |p| p[:price] }
+  def total_price
+    @total_price.round(2)
+  end
+
+  def total_discounts
+    @total_discounts.round(2)
   end
 
   private
@@ -55,6 +49,6 @@ class Cart
   def find_product(name)
     name = name.downcase
 
-    PRODUCTS.find { |p| p[:name].downcase == name || p[:code].downcase == name }
+    Products::LIST.find { |p| p[:name].downcase == name || p[:code].downcase == name }
   end
 end
