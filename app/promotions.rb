@@ -12,14 +12,14 @@ class Promotions
         start_time: Time.now,
         end_time: Time.now + 3600,
         product_code: 'GR1',
-        products: cart.products,
+        cart: cart,
         n: 2
       ),
       FlatPriceDiscount.new(
         start_time: Time.now,
         end_time: Time.now + 3600,
         product_code: 'SR1',
-        products: cart.products,
+        cart:,
         n: 3,
         discounted_price: 4.5
       ),
@@ -27,7 +27,7 @@ class Promotions
         start_time: Time.now,
         end_time: Time.now + 3600,
         product_code: 'CF1',
-        products: cart.products,
+        cart:,
         n: 5,
         discount: 10
       )
@@ -36,6 +36,5 @@ class Promotions
 
   def calculate_discounts
     promotions.select(&:active?).each(&:calculate_discounts)
-    @cart.products = promotions.flat_map(&:products)
   end
 end
