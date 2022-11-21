@@ -11,10 +11,6 @@ class Cart
     @price = 0
   end
 
-  def calculate_price
-    @products.sum { |p| p[:discounted_price] || p[:price] }
-  end
-
   def add_product(code, amount = 1)
     product = Products.find(code)
 
