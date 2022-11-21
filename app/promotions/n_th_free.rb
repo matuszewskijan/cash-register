@@ -1,4 +1,8 @@
+require './app/promotion'
+
 class NThFree
+  include Promotion
+
   attr_accessor :start_time, :end_time, :n, :cart, :product_code
 
   # NOTE: Every n-th product will be free
@@ -8,14 +12,6 @@ class NThFree
     @cart = cart
     @n = n
     @product_code = product_code
-  end
-
-  def products
-    cart.products.select { |p| p.code.downcase == product_code.downcase }
-  end
-
-  def active?
-    start_time <= Time.now && end_time > Time.now
   end
 
   def calculate_discounts

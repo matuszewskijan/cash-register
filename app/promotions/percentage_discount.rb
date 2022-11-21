@@ -1,4 +1,8 @@
+require './app/promotion'
+
 class PercentageDiscount
+  include Promotion
+
   attr_accessor :start_time, :end_time, :n, :cart, :discount, :product_code
 
   # NOTE: All products after buying N products will have different price
@@ -9,14 +13,6 @@ class PercentageDiscount
     @discount = discount
     @cart = cart
     @product_code = product_code
-  end
-
-  def products
-    cart.products.select { |p| p.code.downcase == product_code.downcase }
-  end
-
-  def active?
-    start_time <= Time.now && end_time > Time.now
   end
 
   def calculate_discounts
