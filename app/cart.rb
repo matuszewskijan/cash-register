@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'money'
-require './app/products'
+require './app/inventory/products'
 
 class Cart
   attr_accessor :products, :promotions, :currency

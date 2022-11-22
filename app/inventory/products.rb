@@ -1,4 +1,4 @@
-require './app/product'
+require './app/inventory/product'
 
 module Products
   LIST = [

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './app/products'
+require './app/inventory/products'
 require './app/price_calculator'
 
 class CashRegisterCLI

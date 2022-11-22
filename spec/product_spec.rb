@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './app/product'
+require './app/inventory/product'
 
 RSpec.describe Product do
   describe '#format' do
