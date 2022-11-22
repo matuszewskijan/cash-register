@@ -11,6 +11,6 @@ puts cli.help
 puts 'Currently available products are:'
 puts cli.list
 
-while buf = Readline.readline("> ", true)
+while (buf = Readline.readline('> ', true))
   puts cli.prompt(buf)
 end

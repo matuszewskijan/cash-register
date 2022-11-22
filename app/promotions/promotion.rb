@@ -1,6 +1,6 @@
 module Promotion
-  def products
-    cart.products.select { |p| p.code.downcase == product_code.downcase }
+  def select_products(cart_products)
+    cart_products.select { |p| p.code.downcase == product_code.downcase }
   end
 
   def active?

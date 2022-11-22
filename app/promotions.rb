@@ -5,36 +5,30 @@ Dir["./app/promotions/*.rb"].each {|file| require file }
 class Promotions
   attr_accessor :cart, :promotions
 
-  def initialize(cart)
-    @cart = cart
-    @promotions = [
-      NThFree.new(
-        start_time: Time.now,
-        end_time: Time.now + 3600,
-        product_code: 'GR1',
-        cart: cart,
-        n: 2
-      ),
-      FlatPriceDiscount.new(
-        start_time: Time.now,
-        end_time: Time.now + 3600,
-        product_code: 'SR1',
-        cart:,
-        n: 3,
-        discounted_price: 4.5
-      ),
-      PercentageDiscount.new(
-        start_time: Time.now,
-        end_time: Time.now + 3600,
-        product_code: 'CF1',
-        cart:,
-        n: 5,
-        discount: 10
-      )
-    ]
-  end
+  LIST =[
+    NThFree.new(
+      start_time: Time.now,
+      end_time: Time.now + 3600,
+      product_code: 'GR1',
+      n: 2
+    ),
+    FlatPriceDiscount.new(
+      start_time: Time.now,
+      end_time: Time.now + 3600,
+      product_code: 'SR1',
+      n: 3,
+      discounted_price: 4.5
+    ),
+    PercentageDiscount.new(
+      start_time: Time.now,
+      end_time: Time.now + 3600,
+      product_code: 'CF1',
+      n: 5,
+      discount: 10
+    )
+  ].freeze
 
-  def calculate_discounts
-    promotions.select(&:active?).each(&:calculate_discounts)
+  def self.calculate_discounts(cart_products)
+    promotions.each { |p| p.calculate_discounts(cart_products) }
   end
 end

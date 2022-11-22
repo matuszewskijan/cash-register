@@ -15,7 +15,7 @@ RSpec.describe FlatPriceDiscount do
     context 'when start date is after current time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now + 10, end_time: Time.now + 20, product_code: '', cart:, n: 2, discounted_price: 4.5
+          start_time: Time.now + 10, end_time: Time.now + 20, product_code: '', n: 2, discounted_price: 4.5
         )
       end
 
@@ -27,7 +27,7 @@ RSpec.describe FlatPriceDiscount do
     context 'when end date is before current time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now - 30, end_time: Time.now - 20, product_code: '', cart:, n: 2, discounted_price: 4.5
+          start_time: Time.now - 30, end_time: Time.now - 20, product_code: '', n: 2, discounted_price: 4.5
         )
       end
 
@@ -39,7 +39,7 @@ RSpec.describe FlatPriceDiscount do
     context 'when current time is between start and end time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now - 10,end_time: Time.now + 10, product_code: '', cart:, n: 2, discounted_price: 4.5
+          start_time: Time.now - 10,end_time: Time.now + 10, product_code: '', n: 2, discounted_price: 4.5
         )
       end
 
@@ -49,7 +49,7 @@ RSpec.describe FlatPriceDiscount do
     end
   end
 
-  describe '#calculate_discounts' do
+  describe '#calculate_discounts!' do
     let(:promotion) do
       described_class.new(
         start_time: Time.now - 3600,
@@ -62,39 +62,43 @@ RSpec.describe FlatPriceDiscount do
     end
 
     context 'when n is smaller or equal to products count' do
+      let(:current_cart) { cart(5) }
+
       let(:promotion) do
         described_class.new(
           start_time: Time.now - 3600,
           end_time: Time.now + 3600,
           product_code: 'sR1',
-          cart: cart(5),
           n: 5,
           discounted_price: 4.5
         )
       end
 
       it 'sets new discounted price on all items' do
-        promotion.calculate_discounts
+        promotion.calculate_discounts!(current_cart.products)
 
-        expect(promotion.products.length).to be > 0
-        expect(promotion.products.all? { |p| p.discounted_price == 4.5}).to eq true
+        expect(current_cart.products.all? { |p| p.discounted_price == 4.5}).to eq true
       end
     end
 
     context 'when n is greater than products count' do
+      let(:current_cart) { cart(3) }
+
       let(:promotion) do
         described_class.new(
           start_time: Time.now - 3600,
           end_time: Time.now + 3600,
           product_code: 'sR1',
-          cart: cart(3),
           n: 4,
           discounted_price: 4.5
         )
       end
 
       it 'does not change products' do
-        expect { promotion.calculate_discounts }.not_to change { promotion.products }
+        promotion.calculate_discounts!(current_cart.products)
+
+
+        expect(current_cart.products.all? { |p| p.discounted_price == nil}).to eq true
       end
     end
   end
