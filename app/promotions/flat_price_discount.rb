@@ -1,4 +1,4 @@
-require './app/promotion'
+require './app/promotions/promotion'
 
 class FlatPriceDiscount
   include Promotion
