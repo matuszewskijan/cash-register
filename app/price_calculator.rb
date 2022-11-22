@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './app/promotions'
 
 class PriceCalculator
@@ -29,6 +31,6 @@ class PriceCalculator
   end
 
   def calculate_total_discounts
-    cart.products.select { |p| p.discounted_price }.sum { |p| p.price - p.discounted_price }
+    cart.products.select(&:discounted_price).sum { |p| p.price - p.discounted_price }
   end
 end

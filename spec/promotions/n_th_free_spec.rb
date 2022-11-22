@@ -14,7 +14,7 @@ RSpec.describe NThFree do
   describe '#active?' do
     context 'when start date is after current time' do
       let(:promotion) do
-        described_class.new(start_time: Time.now + 10,end_time: Time.now + 20, product_code: '', n: 2)
+        described_class.new(start_time: Time.now + 10, end_time: Time.now + 20, product_code: '', n: 2)
       end
 
       it 'return false' do
@@ -58,7 +58,7 @@ RSpec.describe NThFree do
       it 'does not change anything' do
         promotion.calculate_discounts!(current_cart.products)
 
-        expect(current_cart.products.count { |p| p.discounted_price }).to eq 0
+        expect(current_cart.products.count(&:discounted_price)).to eq 0
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe NThFree do
       it 'makes every 2nd item free' do
         promotion.calculate_discounts!(current_cart.products)
 
-        expect(current_cart.products.count { |p| p.discounted_price }).to eq 2
+        expect(current_cart.products.count(&:discounted_price)).to eq 2
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe NThFree do
       it 'makes every 5th item free' do
         promotion.calculate_discounts!(current_cart.products)
 
-        expect(current_cart.products.count { |p| p.discounted_price }).to eq 3
+        expect(current_cart.products.count(&:discounted_price)).to eq 3
       end
     end
   end

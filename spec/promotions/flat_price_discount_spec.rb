@@ -39,7 +39,7 @@ RSpec.describe FlatPriceDiscount do
     context 'when current time is between start and end time' do
       let(:promotion) do
         described_class.new(
-          start_time: Time.now - 10,end_time: Time.now + 10, product_code: '', n: 2, discounted_price: 4.5
+          start_time: Time.now - 10, end_time: Time.now + 10, product_code: '', n: 2, discounted_price: 4.5
         )
       end
 
@@ -77,7 +77,7 @@ RSpec.describe FlatPriceDiscount do
       it 'sets new discounted price on all items' do
         promotion.calculate_discounts!(current_cart.products)
 
-        expect(current_cart.products.all? { |p| p.discounted_price == 4.5}).to eq true
+        expect(current_cart.products.all? { |p| p.discounted_price == 4.5 }).to eq true
       end
     end
 
@@ -97,8 +97,7 @@ RSpec.describe FlatPriceDiscount do
       it 'does not change products' do
         promotion.calculate_discounts!(current_cart.products)
 
-
-        expect(current_cart.products.all? { |p| p.discounted_price == nil}).to eq true
+        expect(current_cart.products.all? { |p| p.discounted_price.nil? }).to eq true
       end
     end
   end

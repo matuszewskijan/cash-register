@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'readline'
 require './app/cash_register_cli'
 require './app/cart'

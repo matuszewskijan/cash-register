@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Promotion
   def select_products(cart_products)
     cart_products.select { |p| p.code.downcase == product_code.downcase }

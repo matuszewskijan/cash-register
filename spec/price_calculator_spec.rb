@@ -24,14 +24,14 @@ RSpec.describe PriceCalculator do
       it 'calculate proper promotions' do
         cart.remove_product('gr1', 3)
         calculator.process
-        expect(cart.products.select { |p| p.code == 'GR1' && p.discounted_price != nil }.length).to eq 1
+        expect(cart.products.select { |p| p.code == 'GR1' && !p.discounted_price.nil? }.length).to eq 1
       end
     end
 
     it 'calculate promotions for green tea' do
       calculator.process
 
-      expect(cart.products.select { |p| p.code == 'GR1' && p.discounted_price != nil }.length).to eq 3
+      expect(cart.products.select { |p| p.code == 'GR1' && !p.discounted_price.nil? }.length).to eq 3
     end
 
     it 'calculate promotions for strawberries' do
@@ -47,7 +47,7 @@ RSpec.describe PriceCalculator do
       coffee = cart.products.select { |p| p.code == 'CF1' }
 
       expect(coffee.length).to be > 0
-      expect(coffee.all? { |s| s.discounted_price == nil }).to eq true
+      expect(coffee.all? { |s| s.discounted_price.nil? }).to eq true
     end
   end
 end

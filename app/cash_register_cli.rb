@@ -14,7 +14,7 @@ class CashRegisterCLI
   def prompt(command)
     value = command.split
 
-    return if value.length == 0
+    return if value.length.zero?
 
     if value.length == 1
       send(value[0].to_sym)

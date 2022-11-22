@@ -41,7 +41,7 @@ RSpec.describe Cart do
       end
 
       it 'returns warning message' do
-         expect(cart.add_product('unkown')).to eq 'Unkown product'
+        expect(cart.add_product('unkown')).to eq 'Unkown product'
       end
     end
   end
@@ -69,7 +69,7 @@ RSpec.describe Cart do
       end
 
       it 'returns warning message' do
-         expect(cart.add_product('unkown')).to eq 'Unkown product'
+        expect(cart.add_product('unkown')).to eq 'Unkown product'
       end
     end
   end
