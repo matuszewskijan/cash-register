@@ -1,3 +1,12 @@
+# How to use
+```sh
+ruby app/cash_register.rb
+```
+
+All instructions will be displayed, there is also `help` command.
+
+***
+
 # Technical Evaluation Problem to Solve
 
 You are the developer in charge of building a cash register.
