@@ -31,6 +31,7 @@ class CashRegisterCLI
       `list`: display list with all available products
       `add CODE AMOUNT`: amount could be skipped if only one added, eg. `add strawberries 4`
       `total`: see what is already added to cart
+      `reset`: remove all products from cart
     HELP
   end
 
@@ -39,15 +40,19 @@ class CashRegisterCLI
   end
 
   def add(name, amount = 1)
-    @cart.add_product(name, amount.to_i)
+    cart.add_product(name, amount.to_i)
     price_calculator.process
     total
   end
 
   def total
-    products = @cart.products.map(&:format).join("\n")
+    products = cart.products.map(&:format).join("\n")
 
     "#{products}\nTotal amount: #{@cart.total_price}. Discount amount: #{@cart.total_discounts}."
+  end
+
+  def reset
+    cart.reset!
   end
 
   def method_missing(name, *args, &block)

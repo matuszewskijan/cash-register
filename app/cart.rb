@@ -7,10 +7,17 @@ class Cart
   attr_accessor :products, :promotions, :currency
   attr_writer :total_price, :total_discounts
 
-  def initialize(currency: 'EUR')
-    @products = []
-    @price = 0
+  def initialize(currency: 'EUR', products: [], total_price: 0, total_discounts: 0)
+    @products = products
     @currency = currency
+    @total_price = total_price
+    @total_discounts = total_discounts
+  end
+
+  def reset!
+    @products = []
+    @total_price = 0
+    @total_discounts = 0
   end
 
   def add_product(code, amount = 1)

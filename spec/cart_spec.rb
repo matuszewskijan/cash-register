@@ -4,9 +4,25 @@ require 'spec_helper'
 require './app/cart'
 
 RSpec.describe Cart do
-  let(:cart) { described_class.new }
+  describe '#reset!' do
+    subject(:cart) { described_class.new(products: [1, 2, 3], total_price: 3, total_discounts: 3) }
+
+    it 'removes all products' do
+      expect { cart.reset! }.to change(cart, :products).to([])
+    end
+
+    it 'sets total_price to 0' do
+      expect { cart.reset! }.to change(cart, :total_price).to('€0.00')
+    end
+
+    it 'sets discounted_price to 0' do
+      expect { cart.reset! }.to change(cart, :total_discounts).to('€0.00')
+    end
+  end
 
   describe '#add_product' do
+    subject(:cart) { described_class.new }
+
     context 'when known product' do
       it 'adds product to the cart' do
         expect { cart.add_product('sr1') }.to change(cart.products, :count).by(1)
@@ -31,6 +47,8 @@ RSpec.describe Cart do
   end
 
   describe '#remove_product' do
+    subject(:cart) { described_class.new }
+
     before { cart.add_product('sr1', 5) }
 
     context 'when known product' do
