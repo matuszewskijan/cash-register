@@ -30,6 +30,7 @@ class CashRegisterCLI
       `exit`
       `list`: display list with all available products
       `add CODE AMOUNT`: amount could be skipped if only one added, eg. `add strawberries 4`
+      `remove CODE AMOUNT`: amount could be skipped if only one added, eg. `add strawberries 4`
       `total`: see what is already added to cart
       `reset`: remove all products from cart
     HELP
@@ -41,6 +42,12 @@ class CashRegisterCLI
 
   def add(name, amount = 1)
     cart.add_product(name, amount.to_i)
+    price_calculator.process
+    total
+  end
+
+  def remove(name, amount = 1)
+    cart.remove_product(name, amount.to_i)
     price_calculator.process
     total
   end
