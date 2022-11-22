@@ -1,3 +1,4 @@
+require 'readline'
 require './app/cash_register_cli'
 require './app/cart'
 
@@ -10,6 +11,6 @@ puts cli.help
 puts 'Currently available products are:'
 puts cli.list
 
-while true
-  puts cli.prompt('> ')
+while buf = Readline.readline("> ", true)
+  puts cli.prompt(buf)
 end

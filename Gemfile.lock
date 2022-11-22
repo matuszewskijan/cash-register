@@ -8,6 +8,7 @@ GEM
     docile (1.4.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    io-console (0.5.11)
     json (2.6.2)
     method_source (1.0.0)
     money (6.16.0)
@@ -19,7 +20,11 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     rainbow (3.1.1)
+    readline (0.0.3)
+      reline
     regexp_parser (2.6.0)
+    reline (0.3.1)
+      io-console (~> 0.5)
     rexml (3.2.5)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
@@ -62,6 +67,7 @@ PLATFORMS
 DEPENDENCIES
   money
   pry
+  readline
   rspec (~> 3.9)
   rubocop
   simplecov

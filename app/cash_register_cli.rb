@@ -11,9 +11,8 @@ class CashRegisterCLI
     @price_calculator = PriceCalculator.new(cart:)
   end
 
-  def prompt(label)
-    print(label)
-    value = gets.chomp.split
+  def prompt(command)
+    value = command.split
 
     return if value.length == 0
 

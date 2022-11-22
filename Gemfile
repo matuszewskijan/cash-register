@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 ruby '~> 3.1.1'
 
 gem 'money'
+gem 'readline'
 gem 'rspec', '~>3.9'
 
 group :development do
